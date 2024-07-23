@@ -6,8 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.haddamanagementconsole.UiLayer.Screens.HomeScreen
-import com.example.haddamanagementconsole.UiLayer.Screens.OrderScreen
-import com.example.haddamanagementconsole.UiLayer.Screens.ProductScreen
+import com.example.haddamanagementconsole.UiLayer.Screens.Order.DetailOrderScreen
+import com.example.haddamanagementconsole.UiLayer.Screens.Order.OrderScreen
+import com.example.haddamanagementconsole.UiLayer.Screens.Product.ProductScreen
 import com.example.haddamanagementconsole.UiLayer.Screens.User.SpecificUserScreen
 import com.example.haddamanagementconsole.UiLayer.Screens.User.UserScreen
 import com.example.haddamanagementconsole.UiLayer.Screens.User.UserSpecificOrder
@@ -20,6 +21,7 @@ sealed class Nav(val route:String){
     object Order: Nav("order")
     object SpecificUser : Nav("specificuser") // Include {userId} placeholder
     object UserOrder :Nav("specificorder")
+    object DetailOrder:Nav("detailorder")
 }
 
 
@@ -38,13 +40,16 @@ fun AppNav() {
             ProductScreen()
         }
         composable(Nav.Order.route){
-            OrderScreen()
+            OrderScreen(navController,viewmodel)
         }
         composable(Nav.SpecificUser.route){
             SpecificUserScreen(viewmodel,navController)
         }
         composable(Nav.UserOrder.route){
             UserSpecificOrder(viewmodel,navController)
+        }
+        composable(Nav.DetailOrder.route){
+            DetailOrderScreen(viewmodel,navController)
         }
 
     }

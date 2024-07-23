@@ -1,6 +1,5 @@
 package com.example.haddamanagementconsole.DataLayer.Retrofit
 
-import com.example.haddamanagementconsole.DataLayer.Models.AllOrderItem
 import com.example.haddamanagementconsole.DataLayer.Models.MyOrderResponse
 import com.example.haddamanagementconsole.DataLayer.Models.ProductResponse
 import com.example.haddamanagementconsole.DataLayer.Models.UserProfile
@@ -13,12 +12,14 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 interface ApiServices {
+
+    @FormUrlEncoded
+    @POST("/SpecificOrder")
+    suspend fun SpecificOrder(@Field("orderId") orderId :Int):Response<MyOrderResponse?>
+
     @FormUrlEncoded
     @POST("/orders")
-    suspend fun MyOrder(
-        @Field("user_id") id:String
-    ): Response<List<MyOrderResponse>>
-
+    suspend fun MyOrder(@Field("user_id") id:String): Response<List<MyOrderResponse>>
     @FormUrlEncoded
     @POST("/GetUser")
     suspend fun getUserInfo(@Field("userId") UserID: String): Response<UserProfile?>
@@ -29,7 +30,7 @@ interface ApiServices {
     @GET("/AllUser")
     suspend fun getAllUser():Response<List<UsersItem>>
     @GET("/getAllOrder")
-    suspend fun getAllOrder():Response<List<AllOrderItem>>
+    suspend fun getAllOrder():Response<List<MyOrderResponse>>
     @GET("/getAllProduct")
     suspend fun getAllProduct():Response<List<ProductResponse>>
 

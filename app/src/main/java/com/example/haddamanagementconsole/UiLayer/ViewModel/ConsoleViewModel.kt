@@ -23,6 +23,18 @@ class ConsoleViewModel @Inject constructor(val repo: ConsoleRepo):ViewModel() {
             repo.getAllProduct()
         }
     }
+    val orderid = mutableStateOf(0)
+    fun getOrderId(id:Int){
+        Log.d("VMOID","${orderid.value}")
+        orderid.value = id
+    }
+
+    val Order = repo.OrderData
+    fun Order(order:Int){
+        viewModelScope.launch {
+            repo.OrderResponse(order)
+        }
+    }
 
     val id = mutableStateOf("")
     fun getId(idUser:String){

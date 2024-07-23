@@ -35,9 +35,11 @@ fun UserScreen(navController: NavHostController, viewmodel: ConsoleViewModel) {
 
     val userList = viewmodel.AllUser.collectAsState()
 
-    LazyColumn {
-        items(userList.value){
-            UserScreenItem(it,navController,viewmodel)
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()){
+        LazyColumn {
+            items(userList.value) {
+                UserScreenItem(it, navController, viewmodel)
+            }
         }
     }
 }
@@ -51,7 +53,8 @@ fun UserScreenItem(
     Card (modifier = Modifier
         .fillMaxWidth(.95f)
         .height(150.dp)
-        .padding(vertical = 5.dp, horizontal = 8.dp).clickable {
+        .padding(vertical = 5.dp, horizontal = 8.dp)
+        .clickable {
             viewmodel.getId(usersItem.userID)
             navController.navigate(Nav.SpecificUser.route)
         }){

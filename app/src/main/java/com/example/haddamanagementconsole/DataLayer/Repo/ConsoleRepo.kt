@@ -2,7 +2,6 @@ package com.example.haddamanagementconsole.DataLayer.Repo
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import com.example.haddamanagementconsole.DataLayer.Models.AllOrderItem
 import com.example.haddamanagementconsole.DataLayer.Models.MyOrderResponse
 import com.example.haddamanagementconsole.DataLayer.Models.ProductResponse
 import com.example.haddamanagementconsole.DataLayer.Models.UserProfile
@@ -27,8 +26,8 @@ class ConsoleRepo @Inject constructor(private val apiServices: ApiServices) {
         }
     }
 
-    private val orderListMutable = MutableStateFlow<List<AllOrderItem>>(emptyList())
-    val orderlist: StateFlow<List<AllOrderItem>>
+    private val orderListMutable = MutableStateFlow<List<MyOrderResponse>>(emptyList())
+    val orderlist: StateFlow<List<MyOrderResponse>>
         get() = orderListMutable
 
     suspend fun getAllOrder() {
@@ -78,6 +77,18 @@ class ConsoleRepo @Inject constructor(private val apiServices: ApiServices) {
         if (response.isSuccessful && response.body()!=null){
             Log.d("SpecificOrderRepo","${response.body()}")
             MutableUserOrder.emit(response.body()!!)
+        }
+        else{
+
+        }
+    }
+    private  val MutableOrder = MutableStateFlow<MyOrderResponse?>(null)
+    val OrderData :MutableStateFlow<MyOrderResponse?>
+        get() = MutableOrder
+    suspend fun OrderResponse(orderId:Int){
+        val response = apiServices.SpecificOrder(orderId)
+        if (response.isSuccessful && response.body()!=null){
+            MutableOrder.emit(response.body()!!)
         }
         else{
 

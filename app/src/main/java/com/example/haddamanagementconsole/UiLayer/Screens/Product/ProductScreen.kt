@@ -1,4 +1,4 @@
-package com.example.haddamanagementconsole.UiLayer.Screens
+package com.example.haddamanagementconsole.UiLayer.Screens.Product
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,9 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun OrderScreen() {
-
+fun ProductScreen (){
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Orders")
+        Text(text = "Products")
     }
 }
